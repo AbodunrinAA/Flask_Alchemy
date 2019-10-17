@@ -1,0 +1,39 @@
+from werkzeug.security import safe_str_cmp
+from User.User import User
+
+users = [
+    User(1, 'Baba', 'opeyemi'),
+    User(2, 'Omo', 'opeyemi')
+]
+
+username_mapping = {u.getUserName(): u for u in users}
+
+userId_mapping = {u.id: u for u in users}
+
+
+def authenticate(username, password):
+    user = User.getUser_By_Username(username)
+    # user = username_mapping.get((username,), None)
+    # print(user.id[0], user.username[0], user.password)
+    if user and safe_str_cmp(user.password, password):
+        return user
+
+
+def identity(payload):  # unique to Flask-JWT
+    user_id = payload['identity']
+    print('here')
+    print(user_id)
+    return User.getUser_By_Id(user_id)
+    # return userId_mapping.get(tuple(user_id), None)
+
+
+
+
+users = [
+    User(1, 'Baba', 'opeyemi'),
+    User(2, 'Omo', 'opeyemi')
+]
+
+username_mapping = {u.getUserName(): u for u in users}
+
+userId_mapping = {u.id: u for u in users}
