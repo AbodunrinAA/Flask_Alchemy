@@ -51,6 +51,7 @@ api.add_resource(UserList, '/users')
 
 if __name__ == "__main__":
     from db import db
+
     # Migration
     migrate = Migrate(app, db)
     manager = Manager(app)
