@@ -37,3 +37,13 @@ users = [
 username_mapping = {u.getUserName(): u for u in users}
 
 userId_mapping = {u.id: u for u in users}
+
+
+
+
+# Replaced with flask migrate
+
+# Create Db and Models tables
+# @app.before_first_request
+# def create_db():
+# db.create_all()

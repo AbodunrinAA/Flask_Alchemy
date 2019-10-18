@@ -7,6 +7,8 @@ class ItemModel(db.Model):
     __tablename__ = "Items"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))
+    produce_date = db.Column(db.DateTime(), default=True)
+    expire_date = db.Column(db.DateTime(), default=True)
     price = db.Column(db.Float(precision=5))
     store_id = db.Column(db.Integer, db.ForeignKey('Stores.id'))
     store = db.relationship('StoreModel')

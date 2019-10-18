@@ -1,6 +1,10 @@
 from flask import Flask
 from flask_restful import Api
 
+# Migration
+from flask_script import Manager
+from flask_migrate import Migrate, MigrateCommand
+
 # Security
 from flask_jwt import JWT
 
@@ -23,12 +27,6 @@ app.secret_key = 'jose'
 
 # Flask RESTful
 api = Api(app)
-
-# Create Db and Models tables
-@app.before_first_request
-def create_db():
-    db.create_all()
-
 
 # Security
 jwt = JWT(app, authenticate, identity)
@@ -53,5 +51,11 @@ api.add_resource(UserList, '/users')
 
 if __name__ == "__main__":
     from db import db
+    # Migration
+    migrate = Migrate(app, db)
+    manager = Manager(app)
+    manager.add_command('db', MigrateCommand)
+    # manager.run()
+
     db.init_app(app)
     app.run(port=5000, debug=True)
